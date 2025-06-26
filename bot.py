@@ -3,7 +3,7 @@ import requests
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-BOT_TOKEN = os.getenv("TELEGRAM_TOKEN")
+BOT_TOKEN = 7919706295:AAEiZTyzt92tmUbTwviROHgOkgQoL8_pNPA
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🎬 Send a movie name to search from Archive.org!")
