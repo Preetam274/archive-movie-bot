@@ -27,7 +27,24 @@ def search_archive(movie_name):
     title = doc.get("title", "Untitled")
     description = doc.get("description", "No description available.")
     view_link = f"https://archive.org/details/{identifier}"
-    download_link = f"https://archive.org/download/{identifier}/{identifier}_512kb.mp4"
+
+    # 🔍 Fetch real files from metadata
+    metadata_url = f"https://archive.org/metadata/{identifier}"
+    metadata = requests.get(metadata_url).json()
+    files = metadata.get("files", [])
+
+    # 🎯 Find the first MP4 file
+    video_file = None
+    for f in files:
+        name = f.get("name", "")
+        if name.endswith(".mp4"):
+            video_file = name
+            break
+
+    if video_file:
+        download_link = f"https://archive.org/download/{identifier}/{video_file}"
+    else:
+        download_link = "❌ No downloadable MP4 found."
 
     return f"""🎬 *{title}*
 📝 {description}
